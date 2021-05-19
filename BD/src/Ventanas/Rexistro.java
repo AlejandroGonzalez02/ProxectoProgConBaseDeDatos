@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package Ventanas;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -13,10 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class Rexistro extends javax.swing.JFrame {
 
+    //Fondo
+    FondoPanel fondo= new FondoPanel();
     /**
      * Creates new form Rexistro
      */
     public Rexistro() {
+        //fondo
+        this.setContentPane(fondo);
+        
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -36,7 +47,6 @@ public class Rexistro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         apelido1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         apelido2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -73,13 +83,6 @@ public class Rexistro extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -140,9 +143,7 @@ public class Rexistro extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton1)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton2)
-                            .addGap(18, 18, 18)
+                            .addGap(111, 111, 111)
                             .addComponent(jButton3))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +186,6 @@ public class Rexistro extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGap(34, 34, 34)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
                         .addComponent(jButton3)
                         .addComponent(jButton1))
                     .addContainerGap(112, Short.MAX_VALUE)))
@@ -239,30 +239,6 @@ public class Rexistro extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        /**
-        * @param MODIFICAR
-        */
-        try{
-            String dni=buscar.getText().trim();
-            
-            Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/firmas","root","");
-            PreparedStatement pst= cn.prepareStatement("update firmados set Nome=?, Apelido 1=?,Apelido 2=? where Dni="+dni);
-            
-            pst.setString(1,nome.getText().trim());
-            pst.setString(2,apelido1.getText().trim());
-            pst.setString(3,apelido2.getText().trim());
-            pst.executeUpdate();
-            
-            label_status.setText("Modificamos a sua firma con exito!!");
-        
-            
-            
-            }catch(Exception e){
-            
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void apelido2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apelido2ActionPerformed
         // TODO add your handling code here:
@@ -343,7 +319,6 @@ public class Rexistro extends javax.swing.JFrame {
     private javax.swing.JTextField buscar;
     private javax.swing.JTextField dni;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -354,4 +329,22 @@ public class Rexistro extends javax.swing.JFrame {
     private javax.swing.JLabel label_status;
     private javax.swing.JTextField nome;
     // End of variables declaration//GEN-END:variables
+
+    
+    class FondoPanel extends JPanel
+    {
+        private Image imagen;
+        
+        @Override
+        public void paint(Graphics g)
+        {
+            imagen = new ImageIcon(getClass().getResource("/Imaxes/unnamed2.jpg")).getImage();
+            
+            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            
+            setOpaque(false);
+            
+            super.paint(g);
+        }
+    }
 }
